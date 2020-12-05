@@ -9,6 +9,7 @@ public class GameMove {
     @Min(-1)
     @Max(1)
     private final int addend;
+
     private final int result;
 
     public GameMove(int result) {

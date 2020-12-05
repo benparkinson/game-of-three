@@ -12,7 +12,7 @@ import java.net.URI;
 @Configuration
 public class ClientConfiguration {
 
-    @Value("${other-player.uri}")
+    @Value("${game-of-three.other-player.uri}")
     private URI otherPlayerUri;
 
     @Bean

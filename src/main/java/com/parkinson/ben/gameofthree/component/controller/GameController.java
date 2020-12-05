@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/gameofthree")
@@ -25,20 +26,7 @@ public class GameController {
     @PostMapping("/v1/api/gamemoves")
     @ResponseStatus(HttpStatus.CREATED)
     public void handleGameMove(@Valid @RequestBody GameMove gameMove) {
-        System.out.println("Received game move: "+ gameMove.toString());
-
-        if (gameMove.wasWinningMove()) {
-            System.out.println("I lost :(");
-        } else {
-            GameMove nextMove = gameService.makeNextGameMove(gameMove);
-
-            System.out.println("Responding with next move: "+nextMove.toString());
-
-            if (nextMove.wasWinningMove()) {
-                System.out.println("I won :)");
-            }
-
-            otherPlayerService.sendNextMove(nextMove);
-        }
+        Optional<GameMove> nextMove = gameService.makeNextGameMove(gameMove);
+        nextMove.ifPresent(otherPlayerService::sendNextMove);
     }
 }
