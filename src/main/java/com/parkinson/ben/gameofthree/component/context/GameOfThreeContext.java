@@ -16,9 +16,15 @@ public class GameOfThreeContext {
     @Value("${game-of-three.play-mode}")
     private PlayMode playMode;
 
+    @Value("${game-of-three.min-start-move}")
+    private int minStartMove;
+
+    @Value("${game-of-three.max-start-move}")
+    private int maxStartMove;
+
     @Bean
     public IGameService gameService() {
-        return new GameService(playMode);
+        return new GameService(playMode, minStartMove, maxStartMove);
     }
 
     @Bean

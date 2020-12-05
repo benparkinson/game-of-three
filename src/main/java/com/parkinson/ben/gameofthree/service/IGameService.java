@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface IGameService {
 
+    GameMove startGameWithRandomMove();
+
     Optional<GameMove> makeNextGameMove(GameMove gameMove);
 
 }
