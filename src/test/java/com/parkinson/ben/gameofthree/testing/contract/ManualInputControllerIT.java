@@ -11,6 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.URI;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 // note that for now this depends on both player servers running
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
@@ -42,11 +44,15 @@ public class ManualInputControllerIT {
     }
 
     @Test
-    public void testStartGameRespondsWithCreated() {
-        RestAssured.with()
+    public void testStartGameRespondsWithCreatedAndValidFirstMove() {
+        GameMove firstMoveResponse = RestAssured.with()
                 .header("Content-Type", "application/json")
                 .when().post(serverUri + "/gameofthree/v1/api/games")
-                .then().statusCode(HttpStatus.SC_CREATED);
+                .then().statusCode(HttpStatus.SC_CREATED)
+                .extract().as(GameMove.class);
+
+        assertThat(firstMoveResponse.getAddend()).isEqualTo(0);
+        assertThat(firstMoveResponse.getResult()).isGreaterThan(0);
     }
 
 }

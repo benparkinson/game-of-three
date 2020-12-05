@@ -25,10 +25,12 @@ public class ManualInputController {
 
     @PostMapping("/v1/api/games")
     @ResponseStatus(HttpStatus.CREATED)
-    public void startNewGame() {
+    public GameMove startNewGame() {
         GameMove firstMove = gameService.startGameWithRandomMove();
 
         otherPlayerService.sendNextMove(firstMove);
+
+        return firstMove;
     }
 
     @PostMapping("/v1/api/manual/gamemoves")
