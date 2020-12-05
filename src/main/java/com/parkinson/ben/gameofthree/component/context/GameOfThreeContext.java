@@ -3,12 +3,15 @@ package com.parkinson.ben.gameofthree.component.context;
 import com.parkinson.ben.gameofthree.client.IOtherPlayerClient;
 import com.parkinson.ben.gameofthree.model.PlayMode;
 import com.parkinson.ben.gameofthree.service.IGameService;
+import com.parkinson.ben.gameofthree.service.IMessagingService;
 import com.parkinson.ben.gameofthree.service.IOtherPlayerService;
 import com.parkinson.ben.gameofthree.service.impl.GameService;
+import com.parkinson.ben.gameofthree.service.impl.MessagingService;
 import com.parkinson.ben.gameofthree.service.impl.OtherPlayerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 @Configuration
 public class GameOfThreeContext {
@@ -30,5 +33,10 @@ public class GameOfThreeContext {
     @Bean
     public IOtherPlayerService otherPlayerService(IOtherPlayerClient otherPlayerClient) {
         return new OtherPlayerService(otherPlayerClient);
+    }
+
+    @Bean
+    public IMessagingService messagingService(SimpMessagingTemplate simpMessagingTemplate) {
+        return new MessagingService(simpMessagingTemplate);
     }
 }

@@ -3,8 +3,8 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/gameofthree/v1/api/games',
-            success: function() {
-                $('#feedback-message').text('Game started successfully!');
+            success: function(firstMove) {
+                $('#feedback-message').text('My first move: ' + firstMove.result);
             },
             error: function() {
                 $('#feedback-message').text('Error starting game');
