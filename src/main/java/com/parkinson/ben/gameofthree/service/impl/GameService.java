@@ -32,7 +32,6 @@ public class GameService implements IGameService {
     @Override
     public Optional<GameMove> makeNextGameMove(GameMove gameMove) {
         if (gameMove.wasWinningMove()) {
-            System.out.println("I lost :(");
             return Optional.empty();
         }
 

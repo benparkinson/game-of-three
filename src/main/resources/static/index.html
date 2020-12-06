@@ -13,22 +13,25 @@
     <script src="/js/gameofthree.js"></script>
 </head>
 <body class="d-flex flex-column vh-100">
-<div class="container"><p id="playMode"></p></div>
+<div class="container"><p id="play-mode"></p></div>
 <div class="container flex-fill">
     <div class="row justify-content-center align-items-center">
         <h1>Game of Three</h1>
     </div>
     <div class="row justify-content-center align-items-center pt-3">
-        <button id="startButton" type="button" class="btn btn-primary">Start Game</button>
+        <button id="start-button" type="button" class="btn btn-primary">Start Game</button>
     </div>
-    <div id="moveSummary" class="row pt-3">
+    <div class="row justify-content-center">
+        <p id="error-message" class="text-danger"></p>
+    </div>
+    <div id="move-summary" class="row">
         <div class="col-3 offset-2">
             <h3>My Moves</h3>
-            <div id="myMoveList" class="list-group"></div>
+            <div id="my-move-list" class="list-group"></div>
         </div>
         <div class="col-3 offset-2">
             <h3>Their Moves</h3>
-            <div id="theirMoveList" class="list-group"></div>
+            <div id="their-move-list" class="list-group"></div>
         </div>
     </div>
     <div class="row justify-content-center align-items-center">
