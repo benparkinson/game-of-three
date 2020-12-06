@@ -1,6 +1,7 @@
 package com.parkinson.ben.gameofthree.testing.contract;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
@@ -26,7 +27,7 @@ public class ManualInputControllerIT {
 
     @Test
     public void testManualValidMoveIsAccepted() {
-        GameMove gameMove = new GameMove(0, 0, 18, 6);
+        ManualGameMove gameMove = new ManualGameMove(18, 0);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
@@ -36,7 +37,7 @@ public class ManualInputControllerIT {
 
     @Test
     public void testInvalidManualMoveRespondsWithBadRequest() {
-        GameMove gameMove = new GameMove(0, 5, 25, 3);
+        ManualGameMove gameMove = new ManualGameMove(18, 5);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)

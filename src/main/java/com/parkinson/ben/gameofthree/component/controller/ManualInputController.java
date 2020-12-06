@@ -1,6 +1,7 @@
 package com.parkinson.ben.gameofthree.component.controller;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
 import com.parkinson.ben.gameofthree.service.IGameService;
 import com.parkinson.ben.gameofthree.service.IMessagingService;
@@ -41,7 +42,8 @@ public class ManualInputController {
 
     @PostMapping("/v1/api/manual/gamemoves")
     @ResponseStatus(HttpStatus.CREATED)
-    public void forwardManualGameMove(@Valid @RequestBody GameMove gameMove) {
+    public void forwardManualGameMove(@Valid @RequestBody ManualGameMove manualGameMove) {
+        GameMove gameMove = manualGameMove.convertToGameMove();
         messagingService.sendMoveByMe(gameMove);
         otherPlayerService.sendNextMove(gameMove);
     }
