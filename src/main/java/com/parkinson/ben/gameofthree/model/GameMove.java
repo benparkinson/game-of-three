@@ -6,19 +6,33 @@ import java.util.Optional;
 
 public class GameMove {
 
+    private final int previousResult;
     @Min(-1)
     @Max(1)
     private final int addend;
-
+    private final int dividend;
     private final int result;
 
-    public GameMove(int result) {
-        this(result, 0);
+    private final boolean firstMove;
+
+    public GameMove() {
+        this(0, 0, 0, 0, false);
     }
 
-    public GameMove(int result, int addend) {
-        this.result = result;
+    public GameMove(int result) {
+        this(0, 0, 0, result, true);
+    }
+
+    public GameMove(int previousResult, int addend, int dividend, int result) {
+        this(previousResult, addend, dividend, result, false);
+    }
+
+    private GameMove(int previousResult, int addend, int dividend, int result, boolean firstMove) {
+        this.previousResult = previousResult;
         this.addend = addend;
+        this.dividend = dividend;
+        this.result = result;
+        this.firstMove = firstMove;
     }
 
     public Optional<GameMove> makeNextMove() {
@@ -41,18 +55,33 @@ public class GameMove {
         return addend;
     }
 
+    public int getDividend() {
+        return dividend;
+    }
+
+    public boolean isFirstMove() {
+        return firstMove;
+    }
+
+    public int getPreviousResult() {
+        return previousResult;
+    }
+
     @Override
     public String toString() {
-        return "GameMoveResult{" +
-                "result=" + result +
+        return "GameMove{" +
+                "previousResult=" + previousResult +
                 ", addend=" + addend +
+                ", dividend=" + dividend +
+                ", result=" + result +
+                ", firstMove=" + firstMove +
                 '}';
     }
 
     private Optional<GameMove> attemptMove(int addend) {
-        int newValue = result + addend;
-        if (isDivisibleByThree(newValue)) {
-            return Optional.of(new GameMove(newValue / 3, addend));
+        int dividend = result + addend;
+        if (isDivisibleByThree(dividend)) {
+            return Optional.of(new GameMove(this.result, addend, dividend, dividend / 3));
         }
 
         return Optional.empty();

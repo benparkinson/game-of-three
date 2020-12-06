@@ -13,7 +13,7 @@ public class OtherPlayerServiceTest {
     public void testServiceCallsClient() {
         IOtherPlayerClient mockClient = mock(IOtherPlayerClient.class);
         IOtherPlayerService otherPlayerService = new OtherPlayerService(mockClient);
-        GameMove nextMove = new GameMove(9, 1);
+        GameMove nextMove = new GameMove(0, 1, 9, 3);
 
         otherPlayerService.sendNextMove(nextMove);
         verify(mockClient, times(1)).sendNextMove(eq(nextMove));

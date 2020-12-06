@@ -25,7 +25,7 @@ public class ManualInputControllerIT {
 
     @Test
     public void testManualValidMoveIsAccepted() {
-        GameMove gameMove = new GameMove(18, 0);
+        GameMove gameMove = new GameMove(0, 0, 18, 6);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
@@ -35,7 +35,7 @@ public class ManualInputControllerIT {
 
     @Test
     public void testInvalidManualMoveRespondsWithBadRequest() {
-        GameMove gameMove = new GameMove(18, 5);
+        GameMove gameMove = new GameMove(0, 5, 25, 3);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)

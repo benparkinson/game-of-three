@@ -23,7 +23,7 @@ public class GameControllerIT {
 
     @Test
     public void testValidMoveIsAccepted() {
-        GameMove gameMove = new GameMove(9, 0);
+        GameMove gameMove = new GameMove(0, 0, 9, 3);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
@@ -33,7 +33,7 @@ public class GameControllerIT {
 
     @Test
     public void testInvalidMoveRespondsWithBadRequest() {
-        GameMove gameMove = new GameMove(9, 5);
+        GameMove gameMove = new GameMove(0, 5, 25, 5);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
@@ -43,7 +43,7 @@ public class GameControllerIT {
 
     @Test
     public void testZeroRespondsWithError() {
-        GameMove gameMove = new GameMove(0);
+        GameMove gameMove = new GameMove(0, 0, 0, 0);
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
