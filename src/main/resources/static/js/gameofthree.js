@@ -144,9 +144,9 @@ const manualInputCard = (previousMove) => {
                 </p>
             </div>
             <div id="manual-card-footer" class="card-footer">
-                <button type="button" class="minusOne btn btn-dark">-1</button>
+                <button type="button" class="minus-one btn btn-dark">-1</button>
                 <button type="button" class="zero btn btn-dark">0</button>
-                <button type="button" class="plusOne btn btn-dark">+1</button>
+                <button type="button" class="plus-one btn btn-dark">+1</button>
             </div>
         </div>
     </div>`;

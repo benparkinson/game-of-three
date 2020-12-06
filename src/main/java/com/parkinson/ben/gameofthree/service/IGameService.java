@@ -1,15 +1,16 @@
 package com.parkinson.ben.gameofthree.service;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
-
-import java.util.Optional;
 
 public interface IGameService {
 
-    GameMove startGameWithRandomMove();
+    void startNewGame();
 
-    Optional<GameMove> makeNextGameMove(GameMove gameMove);
+    void handleOtherPlayerGameMove(GameMove gameMove);
+
+    void forwardManualMove(ManualGameMove manualGameMove);
 
     PlayMode getPlayMode();
 

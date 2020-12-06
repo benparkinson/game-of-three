@@ -46,15 +46,11 @@ public class ManualInputControllerIT {
     }
 
     @Test
-    public void testStartGameRespondsWithCreatedAndValidFirstMove() {
-        GameMove firstMoveResponse = RestAssured.with()
+    public void testStartGameRespondsWithCreated() {
+        RestAssured.with()
                 .header("Content-Type", "application/json")
                 .when().post(serverUri + "/gameofthree/v1/api/games")
-                .then().statusCode(HttpStatus.SC_CREATED)
-                .extract().as(GameMove.class);
-
-        assertThat(firstMoveResponse.getAddend()).isEqualTo(0);
-        assertThat(firstMoveResponse.getResult()).isGreaterThan(0);
+                .then().statusCode(HttpStatus.SC_CREATED);
     }
 
     @Test

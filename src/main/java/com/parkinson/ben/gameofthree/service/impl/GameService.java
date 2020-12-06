@@ -1,46 +1,62 @@
 package com.parkinson.ben.gameofthree.service.impl;
 
-import com.parkinson.ben.gameofthree.exception.GameMoveException;
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
+import com.parkinson.ben.gameofthree.service.IGameMoveService;
 import com.parkinson.ben.gameofthree.service.IGameService;
+import com.parkinson.ben.gameofthree.service.IMessagingService;
+import com.parkinson.ben.gameofthree.service.IOtherPlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
 import java.util.Optional;
-import java.util.Random;
 
 public class GameService implements IGameService {
 
     private final PlayMode playMode;
-    private final int minStartMove;
-    private final int maxStartMove;
-    private final Random random;
+    private final IGameMoveService gameMoveService;
+    private final IOtherPlayerService otherPlayerService;
+    private final IMessagingService messagingService;
 
-    public GameService(PlayMode playMode, int minStartMove, int maxStartMove) {
+    @Autowired
+    public GameService(IGameMoveService gameMoveService, IOtherPlayerService otherPlayerService,
+                       IMessagingService messagingService, PlayMode playMode) {
+        this.gameMoveService = gameMoveService;
+        this.otherPlayerService = otherPlayerService;
+        this.messagingService = messagingService;
         this.playMode = playMode;
-        this.minStartMove = minStartMove;
-        this.maxStartMove = maxStartMove;
-        this.random = new Random(new Date().getTime());
     }
 
     @Override
-    public GameMove startGameWithRandomMove() {
-        int firstMove = minStartMove + random.nextInt(maxStartMove);
-        return new GameMove(firstMove);
+    public void startNewGame() {
+        GameMove firstMove = gameMoveService.createRandomFirstGameMove();
+
+        messagingService.sendMoveByMe(firstMove);
+        otherPlayerService.sendNextMove(firstMove);
     }
 
     @Override
-    public Optional<GameMove> makeNextGameMove(GameMove gameMove) {
-        if (gameMove.wasWinningMove()) {
-            return Optional.empty();
-        }
+    public void handleOtherPlayerGameMove(GameMove gameMove) {
+        messagingService.sendMoveByOtherPlayer(gameMove);
 
         if (playMode == PlayMode.AUTOMATIC) {
-            return Optional.of(
-                    gameMove.makeNextMove().orElseThrow(() -> new GameMoveException(gameMove))
-            );
+            sendNextGameMove(gameMove);
         }
-        return Optional.empty();
+    }
+
+    private void sendNextGameMove(GameMove gameMove) {
+        Optional<GameMove> nextMove = gameMoveService.makeNextGameMove(gameMove);
+        nextMove.ifPresent(myMove -> {
+            messagingService.sendMoveByMe(myMove);
+            otherPlayerService.sendNextMove(myMove);
+        });
+    }
+
+    @Override
+    public void forwardManualMove(ManualGameMove manualGameMove) {
+        GameMove gameMove = manualGameMove.convertToGameMove();
+        messagingService.sendMoveByMe(gameMove);
+        otherPlayerService.sendNextMove(gameMove);
     }
 
     @Override
