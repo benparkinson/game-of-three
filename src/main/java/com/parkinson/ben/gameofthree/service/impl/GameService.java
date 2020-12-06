@@ -43,4 +43,9 @@ public class GameService implements IGameService {
         }
         return Optional.empty();
     }
+
+    @Override
+    public PlayMode getPlayMode() {
+        return playMode;
+    }
 }

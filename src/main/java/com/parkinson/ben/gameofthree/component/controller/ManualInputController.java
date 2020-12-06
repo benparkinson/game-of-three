@@ -1,6 +1,7 @@
 package com.parkinson.ben.gameofthree.component.controller;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.PlayMode;
 import com.parkinson.ben.gameofthree.service.IGameService;
 import com.parkinson.ben.gameofthree.service.IMessagingService;
 import com.parkinson.ben.gameofthree.service.IOtherPlayerService;
@@ -43,5 +44,11 @@ public class ManualInputController {
     public void forwardManualGameMove(@Valid @RequestBody GameMove gameMove) {
         messagingService.sendMoveByMe(gameMove);
         otherPlayerService.sendNextMove(gameMove);
+    }
+
+    @GetMapping("/v1/api/playmode")
+    @ResponseStatus(HttpStatus.OK)
+    public PlayMode findPlayMode() {
+        return gameService.getPlayMode();
     }
 }

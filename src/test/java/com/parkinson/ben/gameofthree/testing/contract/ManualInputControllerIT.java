@@ -1,6 +1,7 @@
 package com.parkinson.ben.gameofthree.testing.contract;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.PlayMode;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -55,4 +56,11 @@ public class ManualInputControllerIT {
         assertThat(firstMoveResponse.getResult()).isGreaterThan(0);
     }
 
+    @Test
+    public void testGetPlayMode() {
+        RestAssured.with()
+                .when().get(serverUri + "/gameofthree/v1/api/playmode")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(PlayMode.class);
+    }
 }

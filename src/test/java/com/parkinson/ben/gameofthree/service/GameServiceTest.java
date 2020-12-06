@@ -50,6 +50,15 @@ public class GameServiceTest {
         assertThat(gameMove.getResult()).isLessThanOrEqualTo(MAX_START_MOVE);
     }
 
+    @Test
+    public void testGameServiceGetPlayMode() {
+        IGameService gameService = makeGameService(PlayMode.AUTOMATIC);
+        assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.AUTOMATIC);
+
+        gameService = makeGameService(PlayMode.MANUAL);
+        assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.MANUAL);
+    }
+
     private IGameService makeGameService(PlayMode playMode) {
         return new GameService(playMode, MIN_START_MOVE, MAX_START_MOVE);
     }
