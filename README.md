@@ -14,6 +14,8 @@ will run with player 1 on port 8090 in automatic mode, and player 2 on port 8091
 
 Once the player servers are running, you can head to http://localhost:8080 or http://localhost:8081 to play (or whichever ports you have configured).
 
+Press the 'Start Game' button to play. At the top you can see the mode the player is currently in, press the 'Switch' button to toggle this. Note that the mode can be changed mid-game.
+
 # Known limitations
 
 The players communicate via a REST API, but game moves arrive by means of a WebSocket. This means that if one player is running in manual mode and doesn't have their browser open, they will miss the step and the game must be restarted, as I have not had time to implement a replay of messages when the browser connects to the WebSocket.
