@@ -5,7 +5,7 @@ To run, first package the project:
 
 `mvn clean package`
 
-Next, depending on your environment, run either the `run.bat` (Windows) or `run.sh` (*nix) scripts. This will start two players, one running on port 8080 in 'manual' mode, the other on 8081 in 'automatic'.
+Next, depending on your environment, run either the `run.bat` (Windows) or `run.sh` (*nix/bash) scripts. This will start two players, one running on port 8080 in 'manual' mode, the other on 8081 in 'automatic'.
 If you wish to alter the ports or the running modes of the players, you can do so with command-line arguments to these scripts, with the order `player1Port player2Port player1Mode player2Mode`, for example:
 
 `./run.sh 8090 8091 AUTOMATIC MANUAL`
