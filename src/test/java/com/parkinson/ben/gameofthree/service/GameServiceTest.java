@@ -96,6 +96,20 @@ public class GameServiceTest {
         assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.MANUAL);
     }
 
+    @Test
+    public void testGameServiceUpdatePlayMode() {
+        IGameService gameService = makeGameService(PlayMode.AUTOMATIC);
+        assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.AUTOMATIC);
+
+        gameService.updatePlayMode(PlayMode.MANUAL);
+
+        assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.MANUAL);
+
+        gameService.updatePlayMode(PlayMode.AUTOMATIC);
+
+        assertThat(gameService.getPlayMode()).isEqualTo(PlayMode.AUTOMATIC);
+    }
+
     private IGameService makeGameService(PlayMode playMode) {
         return new GameService(gameMoveService, otherPlayerService, messagingService, playMode);
     }
