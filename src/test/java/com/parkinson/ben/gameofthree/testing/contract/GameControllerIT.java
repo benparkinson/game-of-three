@@ -1,6 +1,7 @@
 package com.parkinson.ben.gameofthree.testing.contract;
 
 import com.parkinson.ben.gameofthree.model.GameMove;
+import com.parkinson.ben.gameofthree.model.PlayMode;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.URI;
 
-// note that for now this depends on both player servers running
+// note that for now this depends on both player servers running in AUTOMATIC mode
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
         TestContext.class
@@ -27,7 +28,7 @@ public class GameControllerIT {
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
-                .when().post(serverUri + "/gameofthree/v1/api/gamemoves")
+                .when().post(serverUri + "/game-of-three/v1/api/game-moves")
                 .then().statusCode(HttpStatus.SC_CREATED);
     }
 
@@ -37,7 +38,7 @@ public class GameControllerIT {
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
-                .when().post(serverUri + "/gameofthree/v1/api/gamemoves")
+                .when().post(serverUri + "/game-of-three/v1/api/game-moves")
                 .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
@@ -47,8 +48,15 @@ public class GameControllerIT {
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
-                .when().post(serverUri + "/gameofthree/v1/api/gamemoves")
+                .when().post(serverUri + "/game-of-three/v1/api/game-moves")
                 .then().statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 
+    @Test
+    public void testGetPlayMode() {
+        RestAssured.with()
+                .when().get(serverUri + "/game-of-three/v1/api/play-mode")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(PlayMode.class);
+    }
 }

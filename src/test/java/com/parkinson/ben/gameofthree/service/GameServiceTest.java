@@ -1,6 +1,5 @@
 package com.parkinson.ben.gameofthree.service;
 
-import com.parkinson.ben.gameofthree.exception.GameMoveException;
 import com.parkinson.ben.gameofthree.model.GameMove;
 import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class GameServiceTest {

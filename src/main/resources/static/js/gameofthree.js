@@ -33,7 +33,7 @@ function startGame() {
 
     $.ajax({
         type: 'POST',
-        url: '/gameofthree/v1/api/games',
+        url: '/game-of-three/v1/api/games',
         error: function (error) {
             $('#error-message').text('Error starting game, is the other player running?');
         }
@@ -43,7 +43,7 @@ function startGame() {
 function fetchPlayMode() {
     $.ajax({
         type: 'GET',
-        url: '/gameofthree/v1/api/playmode',
+        url: '/game-of-three/v1/api/play-mode',
         success: function (configuredPlayMode) {
             playMode = configuredPlayMode;
             updatePlayModeText(playMode);
@@ -174,7 +174,7 @@ function sendManualMove(previousMove, addend) {
 
     $.ajax({
         type: 'POST',
-        url: '/gameofthree/v1/api/manual/gamemoves',
+        url: '/game-of-three/v1/api/manual/game-moves',
         data: JSON.stringify(manualMove),
         contentType: 'application/json',
         success: function () {

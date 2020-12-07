@@ -22,7 +22,7 @@ public class OtherPlayerClient implements IOtherPlayerClient {
     @Override
     public void sendNextMove(GameMove gameMove) {
         URI uri = UriComponentsBuilder.fromUri(otherPlayerUri)
-                .path("/gameofthree/v1/api/gamemoves")
+                .path("/game-of-three/v1/api/game-moves")
                 .build()
                 .encode()
                 .toUri();

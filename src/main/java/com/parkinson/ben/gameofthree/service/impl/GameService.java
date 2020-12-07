@@ -31,8 +31,7 @@ public class GameService implements IGameService {
     public void startNewGame() {
         GameMove firstMove = gameMoveService.createRandomFirstGameMove();
 
-        messagingService.sendMoveByMe(firstMove);
-        otherPlayerService.sendNextMove(firstMove);
+        sendMoveByMe(firstMove);
     }
 
     @Override
@@ -40,27 +39,24 @@ public class GameService implements IGameService {
         messagingService.sendMoveByOtherPlayer(gameMove);
 
         if (playMode == PlayMode.AUTOMATIC) {
-            sendNextGameMove(gameMove);
+            Optional<GameMove> nextMove = gameMoveService.makeNextGameMove(gameMove);
+            nextMove.ifPresent(this::sendMoveByMe);
         }
-    }
-
-    private void sendNextGameMove(GameMove gameMove) {
-        Optional<GameMove> nextMove = gameMoveService.makeNextGameMove(gameMove);
-        nextMove.ifPresent(myMove -> {
-            messagingService.sendMoveByMe(myMove);
-            otherPlayerService.sendNextMove(myMove);
-        });
     }
 
     @Override
     public void forwardManualMove(ManualGameMove manualGameMove) {
         GameMove gameMove = manualGameMove.convertToGameMove();
-        messagingService.sendMoveByMe(gameMove);
-        otherPlayerService.sendNextMove(gameMove);
+        sendMoveByMe(gameMove);
     }
 
     @Override
     public PlayMode getPlayMode() {
         return playMode;
+    }
+
+    private void sendMoveByMe(GameMove myMove) {
+        messagingService.sendMoveByMe(myMove);
+        otherPlayerService.sendNextMove(myMove);
     }
 }

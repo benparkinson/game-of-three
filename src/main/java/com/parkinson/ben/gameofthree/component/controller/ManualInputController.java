@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/gameofthree")
+@RequestMapping("/game-of-three")
 public class ManualInputController {
 
     private static final Logger logger = LoggerFactory.getLogger(ManualInputController.class);
@@ -31,18 +31,10 @@ public class ManualInputController {
         gameService.startNewGame();
     }
 
-    @PostMapping("/v1/api/manual/gamemoves")
+    @PostMapping("/v1/api/manual/game-moves")
     @ResponseStatus(HttpStatus.CREATED)
     public void forwardManualGameMove(@Valid @RequestBody ManualGameMove manualGameMove) {
         logger.info(String.format("Received manual move: %s", manualGameMove));
         gameService.forwardManualMove(manualGameMove);
-    }
-
-    @GetMapping("/v1/api/playmode")
-    @ResponseStatus(HttpStatus.OK)
-    public PlayMode findPlayMode() {
-        PlayMode playMode = gameService.getPlayMode();
-        logger.info(String.format("Received request for play mode, configured mode: %s", playMode));
-        return playMode;
     }
 }

@@ -3,8 +3,6 @@ package com.parkinson.ben.gameofthree.service.impl;
 import com.parkinson.ben.gameofthree.exception.GameMoveException;
 import com.parkinson.ben.gameofthree.model.GameMove;
 import com.parkinson.ben.gameofthree.service.IGameMoveService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.Optional;

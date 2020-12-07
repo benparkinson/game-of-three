@@ -1,6 +1,5 @@
 package com.parkinson.ben.gameofthree.testing.contract;
 
-import com.parkinson.ben.gameofthree.model.GameMove;
 import com.parkinson.ben.gameofthree.model.ManualGameMove;
 import com.parkinson.ben.gameofthree.model.PlayMode;
 import io.restassured.RestAssured;
@@ -12,8 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.URI;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 // note that for now this depends on both player servers running
 @ExtendWith(SpringExtension.class)
@@ -31,7 +28,7 @@ public class ManualInputControllerIT {
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
-                .when().post(serverUri + "/gameofthree/v1/api/manual/gamemoves")
+                .when().post(serverUri + "/game-of-three/v1/api/manual/game-moves")
                 .then().statusCode(HttpStatus.SC_CREATED);
     }
 
@@ -41,7 +38,7 @@ public class ManualInputControllerIT {
         RestAssured.with()
                 .header("Content-Type", "application/json")
                 .body(gameMove)
-                .when().post(serverUri + "/gameofthree/v1/api/manual/gamemoves")
+                .when().post(serverUri + "/game-of-three/v1/api/manual/game-moves")
                 .then().statusCode(HttpStatus.SC_BAD_REQUEST);
     }
 
@@ -49,15 +46,7 @@ public class ManualInputControllerIT {
     public void testStartGameRespondsWithCreated() {
         RestAssured.with()
                 .header("Content-Type", "application/json")
-                .when().post(serverUri + "/gameofthree/v1/api/games")
+                .when().post(serverUri + "/game-of-three/v1/api/games")
                 .then().statusCode(HttpStatus.SC_CREATED);
-    }
-
-    @Test
-    public void testGetPlayMode() {
-        RestAssured.with()
-                .when().get(serverUri + "/gameofthree/v1/api/playmode")
-                .then().statusCode(HttpStatus.SC_OK)
-                .extract().as(PlayMode.class);
     }
 }
