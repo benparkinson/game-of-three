@@ -20,4 +20,4 @@ The players communicate via a REST API, but game moves arrive by means of a WebS
 
 Related to this is the drawback that if the server restarts, the browser must refresh in order to reconnect to the WebSocket.
 
-In addition, there are no routes to configure the players, they must be restarted to change configuration.
+Since the players communicate via a REST API, if one player is not running when a move is sent then the request will unfortunately fail. Implementing this with an event-based communication would have prevented this, but I decided on the REST-based communication as I have more experience with it.
