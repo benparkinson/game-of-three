@@ -14,4 +14,5 @@ public interface IGameService {
 
     PlayMode getPlayMode();
 
+    void updatePlayMode(PlayMode playMode);
 }

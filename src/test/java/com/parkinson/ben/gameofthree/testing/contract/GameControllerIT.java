@@ -59,4 +59,22 @@ public class GameControllerIT {
                 .then().statusCode(HttpStatus.SC_OK)
                 .extract().as(PlayMode.class);
     }
+
+    @Test
+    public void testUpdatePlayMode() {
+        RestAssured.with()
+                .when().put(serverUri + "/game-of-three/v1/api/play-mode/MANUAL")
+                .then().statusCode(HttpStatus.SC_OK);
+
+        RestAssured.with()
+                .when().put(serverUri + "/game-of-three/v1/api/play-mode/AUTOMATIC")
+                .then().statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void testUpdatePlayModeWithInvalidModeReturnsBadRequest() {
+        RestAssured.with()
+                .when().put(serverUri + "/game-of-three/v1/api/play-mode/TEST")
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
 }

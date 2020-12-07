@@ -25,6 +25,10 @@ $(document).ready(function () {
         sendManualMove(previousMoveForManualInput, 1);
     });
 
+    $('#switch-mode-button').on('click', function () {
+        switchGameMode();
+    });
+
     connectToWebSocket();
 });
 
@@ -53,6 +57,23 @@ function fetchPlayMode() {
             updatePlayModeText(playMode);
         }
     });
+}
+
+function switchGameMode() {
+    if (!playMode) {
+        return;
+    }
+
+    const newMode = playMode === AUTOMATIC ? MANUAL : AUTOMATIC;
+
+    $.ajax({
+        type: 'PUT',
+        url: '/game-of-three/v1/api/play-mode/' + newMode,
+        success: function (configuredPlayMode) {
+            fetchPlayMode();
+        }
+    });
+
 }
 
 function updatePlayModeText(playMode) {

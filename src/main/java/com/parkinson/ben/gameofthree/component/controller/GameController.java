@@ -38,4 +38,11 @@ public class GameController {
         logger.info(String.format("Received request for play mode, configured mode: %s", playMode));
         return playMode;
     }
+
+    @PutMapping("/v1/api/play-mode/{playMode}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updatePlayMode(@PathVariable PlayMode playMode) {
+        logger.info(String.format("Received request to update play mode to: %s", playMode));
+        gameService.updatePlayMode(playMode);
+    }
 }

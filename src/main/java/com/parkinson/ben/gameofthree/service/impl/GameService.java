@@ -13,10 +13,10 @@ import java.util.Optional;
 
 public class GameService implements IGameService {
 
-    private final PlayMode playMode;
     private final IGameMoveService gameMoveService;
     private final IOtherPlayerService otherPlayerService;
     private final IMessagingService messagingService;
+    private PlayMode playMode;
 
     @Autowired
     public GameService(IGameMoveService gameMoveService, IOtherPlayerService otherPlayerService,
@@ -53,6 +53,11 @@ public class GameService implements IGameService {
     @Override
     public PlayMode getPlayMode() {
         return playMode;
+    }
+
+    @Override
+    public void updatePlayMode(PlayMode playMode) {
+        this.playMode = playMode;
     }
 
     private void sendMoveByMe(GameMove myMove) {
